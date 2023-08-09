@@ -1,6 +1,6 @@
 -- Get all sales
 SELECT *
-FROM salestypes s 
+FROM employees e  
 
 
 -- 1. Get a list of sales records where the sale was a lease.
@@ -30,3 +30,9 @@ WHERE s.deposit > '5000' OR s.payment_method = 'americanexpress';
 SELECT e.employee_id ,e.first_name ,e.last_name
 FROM employees e
 WHERE e.first_name LIKE 'M%' AND e.first_name LIKE '%d';
+
+-- 5. Get a list of employees whose phone numbers have the 604 area code.
+SELECT e.employee_id, e.first_name ,e.last_name ,e.phone 
+FROM employees e 
+WHERE e.phone LIKE '604%';
+
