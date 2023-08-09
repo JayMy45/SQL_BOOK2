@@ -2,13 +2,11 @@
 SELECT *
 FROM salestypes s 
 
+
 -- 1. Get a list of sales records where the sale was a lease.
-SELECT  
-	s.sale_id, s.sales_type_id, s.vehicle_id  
-FROM 
-	sales s 
-WHERE 
-	s.sales_type_id = '2';
+SELECT s.sale_id, s.sales_type_id, s.vehicle_id  
+FROM sales s 
+WHERE s.sales_type_id = '2';
 
 -- 2. Get a list of sales where the purchase date is within the last five years.
 
@@ -27,3 +25,8 @@ WHERE s.purchase_date BETWEEN CURRENT_DATE - INTERVAL '5 years' AND CURRENT_DATE
 SELECT s.sale_id, s.vehicle_id, s.dealership_id, s.sales_type_id, s.deposit, s.payment_method  
 FROM sales s 
 WHERE s.deposit > '5000' OR s.payment_method = 'americanexpress';
+
+-- 4. Get a list of employees whose first names start with "M" or ends with "d".
+SELECT e.employee_id ,e.first_name ,e.last_name
+FROM employees e
+WHERE e.first_name LIKE 'M%' AND e.first_name LIKE '%d';
