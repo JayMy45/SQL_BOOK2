@@ -12,8 +12,18 @@ WHERE
 
 -- 2. Get a list of sales where the purchase date is within the last five years.
 
+SELECT s.sale_id, s.vehicle_id, s.dealership_id, s.sales_type_id, s.purchase_date 
+FROM sales s 
+WHERE s.purchase_date BETWEEN '2018-08-08' AND '2023-08-08';
 
+-- or
+
+SELECT s.sale_id, s.vehicle_id, s.dealership_id, s.sales_type_id, s.purchase_date 
+FROM sales s 
+WHERE s.purchase_date BETWEEN CURRENT_DATE - INTERVAL '5 years' AND CURRENT_DATE;
+
+-- 3. Get a list of sales where the deposit was above 5000 or the customer payed with American Express.
 
 SELECT s.sale_id, s.vehicle_id, s.dealership_id, s.sales_type_id, s.deposit, s.payment_method  
 FROM sales s 
-WHERE s.deposit > '5000';
+WHERE s.deposit > '5000' OR s.payment_method = 'americanexpress';
