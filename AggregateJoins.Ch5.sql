@@ -61,4 +61,41 @@ FROM dealerships d
 LEFT JOIN dealershipemployees de ON d.dealership_id = de.dealership_id
 INNER JOIN employees e ON de.employee_id = e.employee_id
 RIGHT JOIN employeetypes et ON e.employee_type_id = et.employee_type_id;
+
+-- Produce a report that lists every dealership, the number of purchases done by each, 
+-- and the number of leases done by each.
+
+SELECT
+d.business_name,
+--s2.sales_type_name,
+--COUNT(d.business_name),
+SUM(s2.sales_type_name) AS number_of_lease,
+COUNT(s.dealership_id) AS number_of_sale
+FROM dealerships d 
+INNER JOIN sales s ON d.dealership_id = s.dealership_id 
+INNER  JOIN salestypes s2 ON s.sales_type_id  = s2.sales_type_id 
+WHERE s2.sales_type_name = 'Lease'
+GROUP BY d.business_name ;
+
+SELECT
+    d.business_name,
+    SUM(CASE WHEN s2.sales_type_name = 'Purchase' THEN 1 ELSE 0 END) AS number_of_purchases,
+    SUM(CASE WHEN s2.sales_type_name = 'Lease' THEN 1 ELSE 0 END) AS number_of_leases
+FROM dealerships d 
+LEFT JOIN sales s ON d.dealership_id = s.dealership_id 
+LEFT JOIN salestypes s2 ON s.sales_type_id  = s2.sales_type_id 
+GROUP BY d.business_name;
+
+-- What is the most popular vehicle make in terms of number of sales?
+SELECT *
+FROM sales s
+LEFT JOIN vehicles v ON v.vehicle_id = s.vehicle_id 
+LEFT JOIN vehicletypes v2 ON v.vehicle_type_id  = v2.vehicle_type_id 
+GROUP BY v2.make, s.sale_id ;
+
+
+
+
+
+
   
