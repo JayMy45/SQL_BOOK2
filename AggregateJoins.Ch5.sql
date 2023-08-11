@@ -87,12 +87,21 @@ LEFT JOIN salestypes s2 ON s.sales_type_id  = s2.sales_type_id
 GROUP BY d.business_name;
 
 -- What is the most popular vehicle make in terms of number of sales?
-SELECT *
+SELECT 
+	v2.make,
+	COUNT(s.sale_id) AS total_sales
 FROM sales s
 LEFT JOIN vehicles v ON v.vehicle_id = s.vehicle_id 
 LEFT JOIN vehicletypes v2 ON v.vehicle_type_id  = v2.vehicle_type_id 
-GROUP BY v2.make, s.sale_id ;
+GROUP BY v2.make
+ORDER BY total_sales DESC;
 
+
+SELECT v.make, v.model
+FROM (SELECT v.make , v.model FROM vehicletypes v) AS v;
+
+SELECT v.make, v.model
+FROM (SELECT vehicletypes.make, vehicletypes.model FROM vehicletypes v) AS v;
 
 
 
